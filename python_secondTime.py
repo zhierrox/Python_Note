@@ -2053,15 +2053,142 @@
 # def login(username, password):
 # 	pass
 
+# from xml.parsers.expat import ParserCreate
+
+# class DefaultSaxHandler(object):
 
 
+# 	def start_element(self, name, attrs):
+# 		print('sax:start_element: %s, attrs: %s' % (name, str(attrs)))
+
+# 	def end_element(self, name):
+# 		print('sax:end_element: %s' % name)
+
+# 	def char_data(self, text):
+# 		print("sax:char_data: %s" % text)
+
+# def start_element(name, attrs):
+# 	print('sax:start_element: %s, attrs: %s' % (name, str(attrs)))
+
+# def end_element(name):
+# 	print('sax:end_element: %s' % name)
+
+# def char_data(text):
+# 	print("sax:char_data: %s" % text)
 
 
+# xml = r'''<?xml version="1.0"?>
+# <ol>
+#     <li><a href="/python">Python</a></li>
+#     <li><a href="/ruby">Ruby</a></li>
+# </ol>
+# '''
+# # handler = DefaultSaxHandler()
+# parser = ParserCreate()
+# parser.StartElementHandler = start_element
+# parser.EndElementHandler = end_element
+# parser.CharacterDataHandler = char_data
+# parser.Parse(xml)
+
+# from xml.parsersexpat import ParserCreate
+
+# class DefaultSaxHandler(object):
+
+# 	def start_element(self, name, attrs):
+# 		print()
 
 
+# from xml.parsers.expat import ParserCreate
+
+# class DefaultSaxHandler(object):
+
+# 	def start_element(self, name, attrs):
+# 		print("sax:start_element: %s, attrs: %s" % (name, str(attrs)))
+
+# 	def end_element(self, name):
+# 		print("sax:end_element: %s" % name)
+
+# 	def char(self, text):
+# 		print("sax:char: %s" % text)
+
+# xml = r'''<?xml version="1.0"?>
+# <ol>
+#     <li><a href="/python">Python</a></li>
+#     <li><a href="/ruby">Ruby</a></li>
+# </ol>
+# '''
+
+# handler = DefaultSaxHandler()
+# parser = ParserCreate()
+# parser.StartElementHandler = handler.start_element
+# parser.EndElementHandler = handler.end_element
+# parser.CharacterDataHandler = handler.char
+# parser.Parse(xml)
+
+# L = []
+# L.append(r'<?xml version="1.0"?>')
+# L.append(r'<root>')
+# L.append(r'some & data')
+# L.append(r'</root>')
+# print  "".join(L)
+
+from xml.parsers.expat import ParserCreate
 
 
+rst = {}
+forecasts = []
 
+def start_element(name, attrs):
+	global rst
+	global forecasts
+	if name == 'yweather:location':
+		rst['city'] = attrs['city']
+		rst['country'] = attrs['country']
+	if name == 'yweather:forecast':
+		forecasts.append({'text':attrs['text'], 'low': int(attrs['low']), 'high': int(attrs['high'])})
+
+def parse_weather(xml):
+	parser = ParserCreate()
+	parser.StartElementHandler = start_element
+	parser.Parse(xml)
+	rst['today'] = forecasts[0]
+	rst['tomorrow'] = forecasts[1]
+	return rst
+
+xml=r'''<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+    <rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+    <channel>
+    <title>Yahoo! Weather - Beijing, CN</title>
+    <lastBuildDate>Wed, 27 May 2015 11:00 am CST</lastBuildDate>
+    <yweather:location city="Beijing" region="" country="China"/>
+    <yweather:units temperature="C" distance="km" pressure="mb" speed="km/h"/>
+    <yweather:wind chill="28" direction="180" speed="14.48" />
+    <yweather:atmosphere humidity="53" visibility="2.61" pressure="1006.1" rising="0" />
+    <yweather:astronomy sunrise="4:51 am" sunset="7:32 pm"/>
+    <item>
+    <geo:lat>39.91</geo:lat>
+    <geo:long>116.39</geo:long>
+    <pubDate>Wed, 27 May 2015 11:00 am CST</pubDate>
+    <yweather:condition text="Haze" code="21" temp="28" date="Wed, 27 May 2015 11:00 am CST" />
+    <yweather:forecast day="Wed" date="27 May 2015" low="20" high="33" text="Partly Cloudy" code="30" />
+    <yweather:forecast day="Thu" date="28 May 2015" low="21" high="34" text="Sunny" code="32" />
+    <yweather:forecast day="Fri" date="29 May 2015" low="18" high="25" text="AM Showers" code="39" />
+    <yweather:forecast day="Sat" date="30 May 2015" low="18" high="32" text="Sunny" code="32" />
+    <yweather:forecast day="Sun" date="31 May 2015" low="20" high="37" text="Sunny" code="32" />
+    </item>
+    </channel>
+    </rss>
+    '''
+weather=parse_weather(xml)
+assert weather['city'] == 'Beijing', weather['city']
+assert weather['country'] == 'China', weather['country']
+assert weather['today']['text'] == 'Partly Cloudy', weather['today']['text']
+assert weather['today']['low'] == 20, weather['today']['low']
+assert weather['today']['high'] == 33, weather['today']['high']
+assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
+assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
+assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
+print('Weather:', str(weather))
 
 
 
