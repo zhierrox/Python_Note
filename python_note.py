@@ -637,7 +637,7 @@ hashlib:
 		    把登录名作为Salt的一部分来计算MD5， 实现相同口令的用户也存储不同的MD5
 		    摘要算法不是加密算法，不能用于加密（因为无法通过摘要反推明文），只能用于防篡改，但是它的单向计算特性决定了可以在不存储明文口令的情况下验证用户口令
 itertools:
-	用于操作迭代对象
+	用于操作迭代对象， 返回值不是list，而是Iterator
 	无限迭代器：：
 			itertools.count(1)自然数序列； itertools.cycle（字符串）传入的序列无限重复，itertools.repeat（"A", 3）可限定重复次数 
 			无限序列只有在for迭代时才会无限地迭代下去，如果只是创建了一个迭代对象，它不会事先把无限个元素生成出来
@@ -646,6 +646,20 @@ itertools:
 		chain(str, str)把一组迭代对象串联起来，形成一个更大的迭代器
 		groupby(str)把迭代器中相邻的重复元素挑出来放在一起
 		groupby挑选规则是通过函数返回值一致判定的， 例如itertools.groupby('AaaBBbcCAAa', lambda c: c.upper())
+XML:
+	操作XML两种方法：DOM和SAX, 大量处理用beautifulsoupup
+	DOM会把整个XML读入内存，解析为树，因此占用内存大，解析慢，优点是可以任意遍历树的节点
+	SAX是流模式，边读边解析，占用内存小，解析快，缺点是我们需要自己处理事件
+	正常情况下，优先考虑SAX，因为DOM太占内存
+	SAX本质：：为三个事件传入处理函数, 可以是单独函数， 也可以是类里函数(StartElementHandler, EndElementHandler, CharacterDataHandler)
+	SAX::当SAX解析器读到一个节点时，如<a href="/">python</a>产生3个事件::
+															  start_element事件，在读取<a href="/">时::def start_element(self, name, attrs)
+															  char_data事件，在读取python时::end_element(self, name)
+															  end_element事件，在读取</a>时::char_data(self, text)
+    from xml.parsers.expat import ParserCreate
+    StartElementHandler可以处理</>模式
+    读取一大段字符串时，CharacterDataHandler可能被多次调用，所以需要自己保存起来，在EndElementHandler里面再合并
+    最简单也是最有效的生成XML的方法是拼接字符串, L.append(), ''.join(L), 复杂拼接用JSON
 
 
 
