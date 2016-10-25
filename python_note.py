@@ -406,10 +406,10 @@ IO编程：
 	默认都是读取文本文件，并且是UTF-8编码的文本文件， 图片、视频是二进制文件["rb"]
 	只有调用close()方法时，操作系统才保证把没有写入的数据全部写入磁盘。忘记调用close()的后果是数据可能只写了一部分到磁盘，剩下的丢失
 StringIO和BytesIO：
-	数据读写不一定是文件，也可以在内存中读写
+	本质：：内存中读写
 	StringIO在内存中读写str， BytesIO操作二进制数据
 	StringIO要么用来读，要么用来写，不能同时用
-	StringIO(初始化), write(), readline(), getvalue()用于获得写入后的str
+	StringIO(初始化),BytesIO(), write(), readline(), getvalue()用于获得写入后的str
 	本质：：把StringIO类比为内存的文件
 操作文件和目录：
 	系统：：
@@ -647,7 +647,7 @@ itertools:
 		groupby(str)把迭代器中相邻的重复元素挑出来放在一起
 		groupby挑选规则是通过函数返回值一致判定的， 例如itertools.groupby('AaaBBbcCAAa', lambda c: c.upper())
 XML:
-	操作XML两种方法：DOM和SAX, 大量处理用beautifulsoupup
+	操作XML两种方法：DOM和SAX, 大量处理用beautifulsoup
 	DOM会把整个XML读入内存，解析为树，因此占用内存大，解析慢，优点是可以任意遍历树的节点
 	SAX是流模式，边读边解析，占用内存小，解析快，缺点是我们需要自己处理事件
 	正常情况下，优先考虑SAX，因为DOM太占内存
@@ -660,6 +660,58 @@ XML:
     StartElementHandler可以处理</>模式
     读取一大段字符串时，CharacterDataHandler可能被多次调用，所以需要自己保存起来，在EndElementHandler里面再合并
     最简单也是最有效的生成XML的方法是拼接字符串, L.append(), ''.join(L), 复杂拼接用JSON
+HTMLParser:
+	最方便的还是beautifulsoup
+	HTML本质上是XML的子集, 语法没有XML那么严格，所以不能用标准的DOM或SAX来解析HTML
+	搜索引擎::
+			第一步是用爬虫把目标网站的页面抓下来
+			第二步就是解析该HTML页面
+	解析HTML本质：：继承HTMLParser， 重写函数（handle_starttag，handle_endtag，handle_startendtag，handle_data，handle_comment，handle_entityref，handle_charref）
+	feed()方法可以多次调用，不需传入整个HTML字符串，可部分传入
+	两种特殊字符：：英文，"&nbsp;"(解析出来是nbsp), 数字"&#1234;"
+	soup = BeautifulSoup(HTML文件, "html.parser"), soup.select(str)
+	正则：：re.findall("正则表达式"， HTML文件)
+urllib:
+	操作URL::Get, Post, Handler
+	Get::
+		request模块抓取URL内容, request.urlopen("url"), url文件对象.getheaders(), url文件对象.status（200）, url文件对象.reason（OK）， url文件对象.read()
+		GET请求是浏览器发送的， 使用Request对象， 然后添加HTTP头，可把请求伪装成浏览器(request.Request("url")), request对象.add_header（key, value）, request.urlopen(request对象)
+		遇到中文等， 要记得decode('utf-8')
+		import requests， requests.get("url").text和from urllib import request, request.urlopen("url")都可以返回html给浏览器解析， 后者可以拿到报文的metadata（header）
+	Post::
+		以POST发送一个请求，两步：：
+							一、把参数data变为"&"bytes("data=parse.urlencode([(),])"变为"username=email&password=passwd&")
+							二、传入data，例如request.urlopen(req, data=)
+	Handler::
+			实现更复杂的控制
+			通过一个Proxy去访问网站，需要利用ProxyHandler来处理,Proxy Server是网络信息的中转站（cache）， VPN（Virtual Private Network）企业内部专线
+			代理：：帮助内网client访问外网server用的（比如HTTP代理）
+			反向代理：：将来自外网client的请求forward到内网server
+			本质：：Proxy帮助client集中request发送到server， 反向Proxy帮助server分配request给各个server
+			"User-Agent"头就是用来标识浏览器的
+			代理访问两步分：：proxy_handler（代理器地址）, proxy_auth_handler（password等）
+			注意导入：：from urllib import request， 不要直接import urllib
+常用第三方模块:
+	在PyPI-the Python Package Index上注册, 用pip安装
+PIL：
+	PIL：Python Imaging Library, 图像处理标准库; Pillow是新版PIL
+	操作图像::
+			切片、旋转、滤镜、输出文字、调色板
+			图像缩放::Image.open()【不用关闭】, im.size【就是w, h】,im.thumbnail((w, h)), im.save(str."格式")
+			模糊效果::本质是加滤镜，Image.open(), im.filter(ImageFilter.BLUR), im.save()
+			绘图::生成字符验证码::八步法::
+							  随机生成字符chr(random.randint(65, 90))
+							  随机生成颜色(random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+							  图片大小width， height
+							  生成图片Image.new('RGB', size, color)
+							  生成字体ImageFont.truetype('Arial.ttf', 36)【下载字体文件】
+							  填充每个像素ImageDraw.Draw(image), draw.point((x, y),fill=(a,b,c)【color】))
+							  填充文字draw.text((x, y), 字符, font=字体, 颜色)
+							  模糊，保存image.filter(ImageFilter.BLUR), image.save()
+			itertools.combinations(list, 几个槽)， itertools.permutations(list, 几个槽)
+			sys.version_info判断python版本
+
+
 
 
 
