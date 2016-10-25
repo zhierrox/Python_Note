@@ -2132,70 +2132,372 @@
 # L.append(r'</root>')
 # print  "".join(L)
 
-from xml.parsers.expat import ParserCreate
+# from xml.parsers.expat import ParserCreate
 
 
-rst = {}
-forecasts = []
+# rst = {}
+# forecasts = []
 
-def start_element(name, attrs):
-	global rst
-	global forecasts
-	if name == 'yweather:location':
-		rst['city'] = attrs['city']
-		rst['country'] = attrs['country']
-	if name == 'yweather:forecast':
-		forecasts.append({'text':attrs['text'], 'low': int(attrs['low']), 'high': int(attrs['high'])})
+# def start_element(name, attrs):
+# 	global rst
+# 	global forecasts
+# 	if name == 'yweather:location':
+# 		rst['city'] = attrs['city']
+# 		rst['country'] = attrs['country']
+# 	if name == 'yweather:forecast':
+# 		forecasts.append({'text':attrs['text'], 'low': int(attrs['low']), 'high': int(attrs['high'])})
 
-def parse_weather(xml):
-	parser = ParserCreate()
-	parser.StartElementHandler = start_element
-	parser.Parse(xml)
-	rst['today'] = forecasts[0]
-	rst['tomorrow'] = forecasts[1]
-	return rst
+# def parse_weather(xml):
+# 	parser = ParserCreate()
+# 	parser.StartElementHandler = start_element
+# 	parser.Parse(xml)
+# 	rst['today'] = forecasts[0]
+# 	rst['tomorrow'] = forecasts[1]
+# 	return rst
 
-xml=r'''<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-    <rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
-    <channel>
-    <title>Yahoo! Weather - Beijing, CN</title>
-    <lastBuildDate>Wed, 27 May 2015 11:00 am CST</lastBuildDate>
-    <yweather:location city="Beijing" region="" country="China"/>
-    <yweather:units temperature="C" distance="km" pressure="mb" speed="km/h"/>
-    <yweather:wind chill="28" direction="180" speed="14.48" />
-    <yweather:atmosphere humidity="53" visibility="2.61" pressure="1006.1" rising="0" />
-    <yweather:astronomy sunrise="4:51 am" sunset="7:32 pm"/>
-    <item>
-    <geo:lat>39.91</geo:lat>
-    <geo:long>116.39</geo:long>
-    <pubDate>Wed, 27 May 2015 11:00 am CST</pubDate>
-    <yweather:condition text="Haze" code="21" temp="28" date="Wed, 27 May 2015 11:00 am CST" />
-    <yweather:forecast day="Wed" date="27 May 2015" low="20" high="33" text="Partly Cloudy" code="30" />
-    <yweather:forecast day="Thu" date="28 May 2015" low="21" high="34" text="Sunny" code="32" />
-    <yweather:forecast day="Fri" date="29 May 2015" low="18" high="25" text="AM Showers" code="39" />
-    <yweather:forecast day="Sat" date="30 May 2015" low="18" high="32" text="Sunny" code="32" />
-    <yweather:forecast day="Sun" date="31 May 2015" low="20" high="37" text="Sunny" code="32" />
-    </item>
-    </channel>
-    </rss>
-    '''
-weather=parse_weather(xml)
-assert weather['city'] == 'Beijing', weather['city']
-assert weather['country'] == 'China', weather['country']
-assert weather['today']['text'] == 'Partly Cloudy', weather['today']['text']
-assert weather['today']['low'] == 20, weather['today']['low']
-assert weather['today']['high'] == 33, weather['today']['high']
-assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
-assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
-assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
-print('Weather:', str(weather))
-
-
+# xml=r'''<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+#     <rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+#     <channel>
+#     <title>Yahoo! Weather - Beijing, CN</title>
+#     <lastBuildDate>Wed, 27 May 2015 11:00 am CST</lastBuildDate>
+#     <yweather:location city="Beijing" region="" country="China"/>
+#     <yweather:units temperature="C" distance="km" pressure="mb" speed="km/h"/>
+#     <yweather:wind chill="28" direction="180" speed="14.48" />
+#     <yweather:atmosphere humidity="53" visibility="2.61" pressure="1006.1" rising="0" />
+#     <yweather:astronomy sunrise="4:51 am" sunset="7:32 pm"/>
+#     <item>
+#     <geo:lat>39.91</geo:lat>
+#     <geo:long>116.39</geo:long>
+#     <pubDate>Wed, 27 May 2015 11:00 am CST</pubDate>
+#     <yweather:condition text="Haze" code="21" temp="28" date="Wed, 27 May 2015 11:00 am CST" />
+#     <yweather:forecast day="Wed" date="27 May 2015" low="20" high="33" text="Partly Cloudy" code="30" />
+#     <yweather:forecast day="Thu" date="28 May 2015" low="21" high="34" text="Sunny" code="32" />
+#     <yweather:forecast day="Fri" date="29 May 2015" low="18" high="25" text="AM Showers" code="39" />
+#     <yweather:forecast day="Sat" date="30 May 2015" low="18" high="32" text="Sunny" code="32" />
+#     <yweather:forecast day="Sun" date="31 May 2015" low="20" high="37" text="Sunny" code="32" />
+#     </item>
+#     </channel>
+#     </rss>
+#     '''
+# weather=parse_weather(xml)
+# assert weather['city'] == 'Beijing', weather['city']
+# assert weather['country'] == 'China', weather['country']
+# assert weather['today']['text'] == 'Partly Cloudy', weather['today']['text']
+# assert weather['today']['low'] == 20, weather['today']['low']
+# assert weather['today']['high'] == 33, weather['today']['high']
+# assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
+# assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
+# assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
+# print('Weather:', str(weather))
 
 
+# from html.parser import HTMLParser
+# from html.entities import name2codepoint
+
+# class MyHTMLParser(HTMLParser):
+
+# 	def handle_starttag(self, tag, attrs):
+# 		print('<%s>' % tag)
+
+# 	def handle_endtag(self, tag):
+# 		print('</%s>' % tag)
+
+# 	def handle_startendtag(self, tag, attrs):
+# 		print("<%s/>" % tag)
+
+# 	def handle_data(self, data):
+# 		print(data)
+
+# 	def handle_comment(self, data):
+# 		print('!--', data, '-->')
+
+# 	def handle_entityref(sef, name):
+# 		print('&%s;' % name)
+
+# 	def handle_charref(self, name):
+# 		print('&#%s;' % name)
+
+# parser = MyHTMLParser()
+# parser.feed('''<html>
+# <head></head>
+# <body>
+# <!-- test html parser -->
+#     <p>Some <a href=\"#\">html</a> HTML&nbsp;tutorial...<br>END</p>
+# </body></html>''')
+
+# import requests
+# from html.parser import HTMLParser
+
+# class MyHTMLParser(HTMLParser):
+# 	bool_title = False
+# 	bool_time = False
+# 	bool_place = False
+# 	bool_miss = True
+
+# 	def __init__(self):
+# 		HTMLParser.__init__(self)
+# 		self.message = []
+
+# 	def handle_starttag(self, tag, attrs):
+# 		if len(attrs) > 0:
+# 			if tag == "h3" and attrs[0][1] == "event-title":
+# 				self.bool_title = True
+# 			elif tag == "time" and attrs[0][0] == "datetime":
+# 				sefl.bool_time = True
+# 			elif tag == "span" and attr[0][1] == "event-location":
+# 				self.bool_place = True
+# 			elif tag == "h3" and attrs[0][1] == "widget-title just-missed":
+# 				self.bool_miss = False
+
+# 	def handle_data(self, data):
+# 		if self.bool_title and self.bool_miss:
+# 			self.message.append([])
+# 			sefl.message[-1].append(data)
+# 			self.bool_title = False
+
+# 		if self.bool_time and self.bool_miss:
+# 			self.message[-1].append(data)
+# 			self.bool_time = False
+
+# 		if self.bool_place and self.bool_miss:
+# 			self.message[-1].append(data)
+# 			self.bool_place = False
+# def homework():
+# 	parser = MyHTMLParser()
+# 	html = requests.get("")
+# 	parser.feed(html)
+# 	a = parser.message
+# 	a = parser.message
+# 	for x in a:
+# 		print("==========================================")
+# 		print x
+# homework()
+
+# import requests
+
+# from bs4 import BeautifulSoup
+
+# resp = requests.get('https://www.python.org/events/python-events/')
+
+# soup = BeautifulSoup(resp.text, "html.parser")
+
+# for li in soup.select(".list-recent-events > li"):
+# 	print('title:', li.find('a').text)
+# 	print("time:", li.find("time").text)
+# 	print("location:", li.select_one('.event-location').text)
+# 	print("*"*100)
+
+# import re
+# import urllib.request
+
+# with urllib.request.urlopen("url") as url:
+# 	data = url.read().decode("utf-8")
+
+# when1 = re.findall(r"<time\sdatetime=.{27}(.+?)")
 
 
+# from urllib import request
+
+# with request.urlopen('http://www.douban.com/') as f:
+# 	data = f.read()
+# 	print("Status:", f.status, f.reason)
+# 	for k, v in f.getheaders():
+# 		print('%s: %s' % (k, v))
+# 	print('Data:', data.decode('utf-8'))
+
+# from urllib import request
+
+# req = request.Request('http://www.douban.com/')
+
+# req.add_header('User-Agent', 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+
+# with request.urlopen(req) as f:
+# 	print('Status:', f.status, f.reason)
+# 	for k, v in f.getheaders():
+# 		print("%s: %s" % (k, v))
+# 	print("Data:", f.read().decode('utf-8'))
+
+# from urllib import request, parse
+
+# print("Login to weibo.cn...")
+# email = input("Email: ")
+# passwd = input("Password: ")
+# login_data = parse.urlencode([
+# 	('username', email),
+# 	('password', passwd),
+# 	('entry', 'mweibo'),
+# 	('client_id', ''),
+# 	('savestate', '1'),
+# 	('ec', ''),
+# 	('pagerefer', 'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')])
+
+# req = request.Request("https://passport.weibo.cn/sso/login")
+# req.add_header("Origin", 'https://passport.weibo.cn')
+# req.add_header('User-Agent', 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+# req.add_header('Referer', 'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F')
+
+# with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+# 	print('Status:', f.status, f.reason)
+# 	for k, v in f.getheaders():
+# 		print('%s: %s' % (k, v))
+# 	print('Data:', f.read().decode('utf-8'))
+
+# from ulllib import request, parse
+
+# print('Login to weibo.cn...')
+# email = input('Email: ')
+# passwd = input('Password: ')
+# login_data = parse.urlencode([
+# 	('username', email),
+# 	('password', passwd),
+# 	('entry', 'mweibo'),
+# 	('client_id', ''),
+# 	('savestate', '1'),
+# 	('ec', ''),
+# 	('pagerefer', 'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')])
+
+# req = request.Request('https://passport.weibo.cn/sso/login')
+# req.add_header('Origin', 'https://passport.weibo.cn')
+# req.add_header('User-Agent', 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+# req.add_header('Referer', 'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F')
 
 
+# with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+# 	print('Status: ', f.status, f.reason)
+# 	for k, v in f.getheaders():
+# 		print('%s: %s' % (k, v))
+# 	print('Data: ', f.read().decode('utf-8'))
+
+
+# from urllib import request, parse
+
+# print('Login to weibo.cn...')
+# email = input('Email')
+# passwd = input('Password')
+# login_data = parse.urlencode([
+# 	('username', email),
+# 	('passwd', passwd),
+# 	('entry', 'mweibo'),
+# 	('client_id', ''),
+# 	('savestate', '1'),
+# 	('ec', ''),
+# 	('pagerefer', 'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')])
+
+# req = request.Request("https://passport.weibo.cn/sso/login")
+# req.add_header("Origin", "https://passport.weibo.cn")
+# req.add_header("User-Agent", 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25')
+# req.add_header("Referer", 'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F')
+
+# with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+# 	print('Status: ', f.status, f.reason)
+# 	for k,v in f.getheaders():
+# 		print('%s: %s' % (k, v))
+# 	print('Data: ', f.read().decode('utf-8'))
+
+
+# proxy_handler = urllib.request.ProxyHandler({'http': 'http://www.example.com:3128/'})
+# proxy_auth_handler = urllib.request.ProxyBasicAuthHandler()
+# proxy_auth_handler.add_password('realm', 'host', 'username', 'password')
+# opener = urllib.request.build_opener(proxy_handler, proxy_auth_handler)
+# with opener.open("http://www.example.com/login.html") as f:
+# 	pass
+
+# proxy_handler = urllib.request.ProxyHandler({"http": "http://www.example.com:3128/"})
+# proxy_auth_handler = urllib.request.ProxyBasicAuthHandler()
+# proxy_auth_handler.add_password("realm", "host", "username", "password")
+# opener = urllib.request.build_opener(proxy_handler, proxy_auth_handler)
+# with opener.open("http://www.example.com/login.html") as f:
+# 	pass
+
+
+# response = urllib2.urlopen(url)
+
+# data = response.read()
+# r= ET.parse(data).getroot()
+
+# print r.attrib.get('status')
+
+
+# from PIL import Image, ImageDraw, ImageFont, ImageFilter
+# import sys, os
+
+# import random
+
+# version = sys.version_info.major
+# if version == 2:
+# 	ls = list(raw_input("Input: "))
+# elif version == 3:
+# 	ls = list(input("Input: "))
+
+
+# origin_len = len(ls)
+
+# def rndChar():
+# 	# return chr(random.randint(0, len(ls)-1))
+# 	global ls
+# 	i = random.randint(0, len(ls)-1)
+# 	return ls.pop(i)
+
+# def rndColor():
+# 	return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+
+# def rndColor2():
+# 	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+# width = 60 * origin_len
+# height = 60
+
+# image = Image.new('RGB', (width, height), (255, 255, 255))
+
+# font_list =["Windsong.ttf", "AlexBrush-Regular.ttf", "arial.ttf", "GoodDog.otf", "GreatVibes-Regular.otf", "KaushanScript-Regular.otf"]
+# file = random.randint(0, len(font_list)-1)
+# font = ImageFont.truetype(os.path.join(".", "font", font_list[file]) , 36)
+
+# draw = ImageDraw.Draw(image)
+
+# for x in range(width):
+# 	for y in range(height):
+# 		draw.point((x, y), fill=rndColor())
+
+# for t in range(origin_len):
+# 	draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2())
+# 	# draw.text((60 * t + 10, 10), ls[t], font=font, fill=rndColor2())
+# image = image.filter(ImageFilter.BLUR)
+# image.save('code.jpg')
+
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+import random
+
+def rndChar():
+	return chr(random.randint(65, 90))
+
+def rndColor():
+	return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+
+def rndColor2():
+	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+def rndColor2():
+	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+
+width = 60 * 4
+height = 60
+
+image = Image.new('RGB', (width, height), (255, 255, 255))
+
+font = ImageFont.truetype('Arial.ttf', 36)
+draw = ImageDraw.Draq(image)
+
+for x in range(width):
+	for y in range(height):
+		draw.poin((x, y), fill=rndColor())
+
+for t in range(4):
+	draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2)
+
+image = image.filter(ImageFilter.BLUR)
+image.save('code.jpg', 'jpeg')
 
 
