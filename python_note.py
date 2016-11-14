@@ -13,7 +13,7 @@ Python程序：
 	upper 记得 upper()
 输入和输出： 
 	print 的逗号（，）被空格（“ ”）代替
-	input(),括号里是输出信息。
+	input(),括号里是输出信息
 	2.7 用人raw_input
 	可以用连续%%， 例如 print "kk%s" % ("(%s)" % a) 
 python基础：
@@ -94,26 +94,40 @@ dict和set：
 	检查参数类型错误，isinstance(num, (int, float))， raise TypeError("your_str")
 	函数返回多值就是返回一个tuple, 多个变量按位置赋给对应的值
 函数参数：
+	本质：：默认参数的定义的形式和关键字参数调用的形式相同，可变参数和关键字参数的主要用途：：可以传入任意个参数
 	必选参数， 默认参数、可变参数， 关键字参数，
+	本质上，*args, **kw提供了参数的无限个， 而命名关键字是限定参数名， 默认参数是设置参数默认值 
+	*args, **kw是约定的名字，换作*x, **x 都可以， 起作用的是*, **
+	*numsList表示把numsList这个list的所有元素作为可变参数传进去
+	**numsDict表示把numsDict这个Dict的所有元素作为可变参数传进去
+	所有参数类型， 在定义中有"key=value", 都是设置默认值
+	所有参数类型， 在调用时，有"key=value", 要么是传了dict， 要么是不按顺序提供部分默认参数时，需要参数名
+	关键字参数，命名关键字参数， 函数调用时，必须以"参数=值"的形式
+	关键字参数：：
+			 可以传入任意不受限制的关键字参数
+			 到底传入了哪些，就需要在函数内部通过kw【是一个dict】检查
+			 调用时可传入"key=value"
+	命名关键字参数::
+				为了在函数中通过"key"访问，因为关键字参数不能预知"key"，所以在定义时写出参数名
+				不用"**kw",用"*"分开， 如已经有了一个可变参数（*args）, 就不再需要另加"*"
 	必选参数在前，默认参数在后， 变化小的参数作为默认参数
 	默认参数可以兼容旧代码
-	不按顺序提供部分默认参数时，需要参数名
 	默认参数必须指向不变对象
 	不可变对象复制一份去操作，可变对象直接操作自身
 	可变参数当作一个tuple,*num; 关键字参数组装为一个dict, **kw
 	一颗*传一个值， 两颗*传两个值
 	def person(name, age, *, city, job)
-	如果函数中有了一个可变参数，后面跟着的命名关键字参数就不再需要特殊分隔符*
-	命名关键字参数和关键字参数区别在于，它限制了参数的名字
+	可变参数和关键字参数区别就在于一个传（）， 一个传{}， 关键字参数优势在于可以传一个dict
 	命名关键字参数必须传入参数名，和位置参数就差*
-	参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
+	默认参数的个数有限，可变参数， 关键字参数和命名关键字参数个数无限
+	参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数
 	对于任意函数，都可以通过类似func(*args, **kw)的形式调用，无论它的参数是如何定义的
 	递归函数就是调用自身，都可以写成循环， 但要防止栈溢出
 高级特性：
-	1行代码能实现的功能，决不写5行代码。请始终牢记，代码越少，开发效率越高。
+	1行代码能实现的功能，决不写5行代码，请始终牢记，代码越少，开发效率越高
 切片：
-	[左，又）区间。 
-	[:]开头表示最左，和末尾表示最右。
+	[左，又）区间
+	[:]开头表示最左，和末尾表示最右
 	[-2:]比[-2：-1]多一个元素
 	L[::5]所有数，每5个取一个
 迭代：
@@ -124,8 +138,7 @@ dict和set：
 	用以下代码判断对象是否可迭代
 	from collections import Iterable
 	isinstance('abc', Iterable)
-	enumerate把list变成索引-元素对
-	任何可迭代对象都可以作用于for循环，包括我们自定义的数据类型，只要符合迭代条件，就可以使用for循环。
+	任何可迭代对象都可以作用于for循环，包括我们自定义的数据类型，只要符合迭代条件，就可以使用for循环
 列表生成式：
 	List Comprehensions
 	range(左开， 右闭)
@@ -190,7 +203,7 @@ filter:
 	python 2.7 注意调用顺序，例如，build(x, y)(x, y)
 装饰器：
 	__name__ 获得函数名字
-	“装饰器”（Decorator）在代码运行期间动态增加功能的方式
+	装饰器（Decorator）在代码运行期间动态增加功能的方式
 	本质上，decorator就是一个返回函数的高阶函数
 	@decorator置于函数的定义处
 	在定义wrapper()的前面加上@functools.wraps(func)保证装饰过后函数名不变
@@ -317,6 +330,8 @@ filter:
 	枚举类的本质： 实例确定的类
 	注意， Enum（）是创建一个类，如Weekday, 而Weekday.Mon表示一个对象， Weekday.__memebers__.items()相当于遍历每个实例， Weekday(1)是取value为1的对象
 	可以调用： Month.__memebers__['Jan'].__dict__
+	enumerate把list变成索引-元素对, (可迭代对象【list， 字符串】, 起始索引)， 返回（int索引， 元素值）
+	读大文件：：enumerate(open(filepath,'r'))， 可以避免一次性读大文件
 元类：
 	动态语言和静态语言最大的不同，是函数和类的定义，不是编译时定义的，而是运行时动态创建的。
 	创建class对象，type(class名称， 继承的父类tuple， 类方法dict)
@@ -326,13 +341,15 @@ filter:
 	定制类时， 传入关键字参数metaclass， 例如class MyList(list, metaclass=ListMetaclass):
 	__new__(当前准备创建的类的对象cls, 类的名字， 类继承的父类集合， 类的方法集合)
 	ORM本质： 关系数据库的一行映射为一个对象， 一个类对应一个表
-	ORM需要通过metaclass修改类定义， 因为用户需要定义表，因此， 动态定义类
+	为什么要动态修改类：：ORM框架，所有的类都只能动态定义，因为只有使用者才能根据表的结构定义出对应的类来
+	通过metaclass动态修改，增减类属性，方便调用（例如save调用__mappings__, __table__） 
+	类到对象的参数， 实际由类的父类掌握（例如父类是 dict， list）
 	编写底层模块的第一步，就是先把调用接口写出来
 	子类初始化： super(子类名， self).__init__(没有self)
 	从对象保存为到数据库， 本质是调用sql语句
 	metaclass可以隐式地继承到子类，但子类自己却感觉不到
 	ORM-metaclass本质： class 定义时就调用metaclass； object初始化时才调用类； 类属性map到数据表属性
-	self.是操作对象， 不加self是操作类
+	self.是操作对象， 不加，self是操作类
 错误、调试、测试：
 	三种错误： 编写错误， 用户输入错误， 异常（磁盘， 网络等）
 	调试： 跟踪程序的执行
@@ -710,6 +727,455 @@ PIL：
 							  模糊，保存image.filter(ImageFilter.BLUR), image.save()
 			itertools.combinations(list, 几个槽)， itertools.permutations(list, 几个槽)
 			sys.version_info判断python版本
+图形界面：
+	Tkinter(自带， 封装了底层Tk, Tk调用操作系统的GUI)， wxWidgets, Qt, GTK
+	Button、Label、Entry等，都是一个Widget， Frame则是可以容纳其他Widget的Widget，所有的Widget组合起来就是一棵树， message不需要pack（）在初始化里
+	写GUI三步：：
+			导入Tkinter包的所有内容
+			从Frame派生一个Application类，这是所有Widget的父容器（pack()把Widget加入到父容器， grid()布局， createWidgets()）
+			实例化Application，并启动消息循环（app.mainloop()， app.master.title("窗口标题")）, 用"commmand=函数名"设置事件响应
+网络编程：
+	网络编程本质：：实现两个进程间通信
+	更本质：：在Python程序本身这个进程内，连接别的服务器进程的通信端口，进行通信
+	两部分：：TCP编程和UDP编程
+	基本思路::写两个程序：：客户端和服务器端, 客户端连接，服务器端监听
+	网络编程对所有开发语言都是一样的， 因此不用害怕其他语言的网络编程
+	IP地址（例如192.168.10.1）， 域名是计算机名字，一个好记ip的名字（例如，baidu.com）
+	网址就是URL（协议， 服务器名称， 路径，文件），本质是网页的绝对路径
+	打开一个网页实际上是进行如下步骤::
+							  在浏览器里输入网址
+							  浏览器根据域名查找到对应的IP地址::
+							  							浏览器截取域名，传到本机DNS客户端，
+							  							DNS将域名转换成ip（www.baidu.com --> 115.29.38.247 ）并返回
+							  							（从com-->baidu-->www）
+							  							（负载均衡--一个域名可以对应多个IP地址）			  							
+							  浏览器向web服务器发送HTTP请求
+							  服务器根据收到的请求返回响应给浏览器，显示内容
+							  （服务器请求处理就是一个能够读懂请求并且能生成HTML来进行响应的程序（像ASP.NET,PHP,RUBY…））
+							  （浏览器，没有完整接受全部HTML文档时，它就已经开始显示）
+							  浏览器发送获取嵌入在HTML中的对象（如图片，css， Javascript）
+							  (内容分发网络（CDN）, 各地数据中心， 缓存图片，CSS， JavaScript等）
+							  浏览器发送异步请求（例如实时更新在线人数， 图片亮、黑）， 底层可采用轮询方式
+TCP/IP:
+	协议==语言
+	计算机为了联网，就必须规定通信协议, 好比说同种语言的人可以交流
+	互联网协议簇（Internet Protocol Suite）本质通用协议标准（通用语言，都说英语）， 任何私有网络，只要支持这个协议，就可以联入互联网。
+	互联网的协议简称TCP/IP， 相当于是连接各个私有网络
+	每个计算机的唯一标识就是IP地址， 接入多个网络【例如路由器】，就有多个IP, 本质就是网络接口（网卡）
+	IP协议：：
+		  负责把数据从一台计算机通过网络发送到另一台计算机
+		  数据被分割成一小块一小块，然后通过IP包发送出去
+		  路由器就负责决定发送线路
+		  IP包的特点是按块发送，途径多个路由，但不保证能到达，也不保证顺序到达
+		  IP包包含五部分(data, 源IP, 目标IP, 源端口， 目标端口)
+		  IPv4（32位）， 把32位整数按8位分组后的数字表示
+		  IPV6(128位)，分8个部分， 每个部分4个16进制数
+	TCP协议：：
+		   建立在IP协议之上
+		   保证送达而且保证顺序
+		   通过握手建立连接，然后，对每个IP包编号，确保对方按顺序收到，如果包丢掉了，就自动重发。
+	浏览器的HTTP协议， 发送邮件的SMTP协议， 都是建立在TCP协议基础上
+	（IP --> TCP --> HTTP/SMTP）
+	每个网络程序都向操作系统申请唯一的端口号
+	作为服务器，提供什么样的服务，端口号就必须固定下来
+	一个进程也可能同时与多个计算机建立链接，因此它会申请很多端口（原因：：多线程；或者端口不同，端口号相同）
+TCP编程：
+	Socket本质：：一个连接工具， 也是一个接收器
+	Socket表示"打开了一个网络链接", 需要知道(目标IP地址, 目标端口号，协议类型）
+	主动"发起连接"的叫客户端，被动响应连接的叫服务器
+	客户端：：
+		socket.socket(socket.AF_INET, socket.SOCK_STREAM), s.connect((服务器网址, 端口号))【参数是tuple】，s.close()关闭连接， s.send(b"请求命令串[GET, POST等]"), s.recv(Max_Bytes)
+		AF_INET： IPv4, AF_INET6: IPv6, SOCK_STREAM: 面向流的TCP协议
+		cookies::文本文档，存客户机，开始是服务器发给客户端， 然后客户端发回到服务器去验证， 存储（用户名， 服务器分配的密码，一些用户设置）
+		fiddler， FireBug查看HTTP请求， 帮助网站优化
+		ping用于测试与目标主机的连通性
+		端口号小于1024的是Internet标准服务的端口， 80端口是Web服务的标准端口， SMTP服务是25端口， FTP服务是21端口； 端口号大于1024的，可以任意使用
+		TCP连接创建的是双向通道，双方都可以同时给对方发数据, 谁先发谁后发由具体协议决定， HTTP协议规定客户端必须先发请求给服务器，服务器收到后才发数据给客户端
+		发送的文本格式必须符合HTTP标准
+		接收到的数据包括HTTP头和网页本身, 浏览器只需要只需要把HTTP头和网页分离一下，把HTTP头打印出来，网页内容保存到文件
+		"\r\n\r\n"表示两个回车换行， "\r"表示回车， "\n"表示换行
+		步骤：：
+			创建一个基于TCP连接的Socket
+			连接（域名， 端口）
+			发送请求（GET， POST串）
+			接收数据
+			关闭连接
+			处理数据（HTTP头+网页）
+	服务器::
+		监听绑定的端口
+		每来一个客户端连接，就创建该Socket连接
+		每个连接都需要一个新的进程或者新的线程来处理
+		用（服务器地址、服务器端口、客户端地址、客户端端口）来唯一确定一个Socket
+		步骤：：
+			创建一个TCP协议的Socket(和客户端语法相同)
+			绑定端口（s.bind（"IP", 端口））
+			监听端口（s.listen(等待连接的最大数量)）【作用相当于创建连接的最大数】
+			一个永久循环来接受来自客户端的连接， accept()会等待并返回一个客户端的连接
+			创建新线程来处理TCP连接（threading.Thread(target=tcplink, args=(sock, addr))）
+			编写线程/进程处理函数::接收数据， 关闭连接， 处理数据【和客户端语法相同】
+
+
+		"0.0.0.0"绑定到所有的网络地址，还可以用"127.0.0.1"绑定到本机地址，客户端必须同时在本机运行才能连接， 外部的计算机无法连接进来
+		一块网卡实际就是一个IP地址
+		小于1024的端口号必须要有管理员权限才能绑定
+		"while" + "accept()"构成轮询
+		对于客户端，要主动连接服务器的IP和指定端口，对于服务器，要首先监听指定端口，然后，对每一个新的连接，创建一个线程或进程来处理
+		通常，服务器程序会无限运行下去
+		同一个端口，被一个Socket绑定了以后，就不能被别的Socket绑定了
+		把s.listen(5)当作初始化， s.accept()当作监听和分派， 线程处理函数当作处理
+		accept()和connect（）对应，所以建立连接后， 可以多次发数据， 不用建立新的连接
+		TCP是双向通道，都有recv buffer， 和 send buffer 所以不同用考虑客户端、服务器数据冲突和顺序
+		accept()两个功能：：
+					   继续等待新的连接
+					   把当前的新连接包装过后， 扔给新线程处理
+		accept函数新创建的socket对象其实并没有进行端口的占有，而是复制了本地IP和端口号，并且记录了连接过来的客户端的IP和端口号
+UDP编程：
+	不建立连接，不保证到达， 同样是双向通道， 只需要（对方IP， 对方端口）， 速度快
+	服务器步骤::
+			 创建socket（socket.socket(socket.AF_INET, socket.SOCK_DGRAM)， SOCK_DGRAM指定UDP）
+			 绑定端口(不需要listen())
+			 （加入多线程处理）
+			 直接接收（recvfrom()方法返回数据和客户端的地址与端口）， 发送数据（sendto()）
+	客户端::
+		  创建socket（通服务器）
+		  直接发数据（s.sendto()）， 接收数据s.recv()【没有connect()】
+	端口可以用协议区分， 例如tcp和udp，服务器绑定UDP端口和TCP端口互不冲突，UDP的9999端口与TCP的9999端口可以各自绑定
+	地址通常==IP +　ＰｏｒｔＮｕｍｂｅｒ（端口号）
+电子邮件：
+	和现实的邮寄信件相似
+	本质：：
+		编写MUA把邮件发到MTA
+		编写MUA从MDA上收邮件
+	电子邮件软件（Outlook， Foxmail）称为邮件用户代理（Mail User Agent）
+	Mail Transfer Agent——邮件传输代理(Email服务提供商, 如网易、新浪)
+	邮件的最终目的地MDA, Mail Delivery Agent——邮件投递代理, 就像自己的邮箱， 也叫电子邮箱
+	发件人--> MUA（本方）-->自己邮箱的MTA(163.com)-->....-->对方邮箱的MTA(sina.com)--> MDA(电子邮箱，注意是在服务器，不是对方电脑)<--MUA(对方)<--收件人
+	发邮件时：：
+		   MUA和MTA使用SMTP：Simple Mail Transfer Protocol，MTA到另一个MTA也是用SMTP协议（记忆：：S--Send）
+	收邮件时：：
+		   MUA和MDA使用的协议有两种：POP：Post Office Protocol目前版本是3，俗称POP3（记忆：：POP==pop取）
+		   IMAP：Internet Message Access Protocol，目前版本是4，优点是不但能取邮件，还可以直接操作MDA上存储的邮件（如从收件箱移到垃圾箱）
+	配置SMTP服务器， 就是选你邮箱的地址（如smtp.163.com）（配置就是填写的意思）
+	配置POP3或IMAP服务器地址， MUA通过POP或IMAP协议从MDA取到邮件
+	SMTP, POP3 server信息可以直接google
+SMTP发送邮件：
+	三种邮件：：纯文本， HTML， 带附件
+	两个模块：：smtplib负责发送邮件， email负责构造邮件
+	MIMEText("内容", "subtype"[比如"plain"], "utf-8"[保证多语言兼容性])
+	set_debuglevel(1)打印和SMTP服务器交互的所有信息
+	SMTP协议就是简单的文本命令和响应, login()用来登录SMTP服务器, sendmail(from_addr, [to_addr], msg.as_string())发邮件, 收件人是list， as_string()把MIMEText对象变成str
+	步骤：：
+		构建邮件（MIMEBase， MIMEMultipart， MIMENonMultipart（MIMEMessage， MIMEText， MIMEImage））
+		发送邮件（smtplib.SMTP(smtp_server, 25)，server.set_debuglevel(1)， server.login(from_addr, password)， server.sendmail(from_addr, [to_addr], msg.as_string())， server.quit()）
+	发件人、收件人等信息并不是通过SMTP协议发给MTA，而是包含在发给MTA的文本中的(MIMEText 或 MIMEMultipart三个key， From、To和Subject)
+	如果包含中文，需要通过Header对象进行编码, 然后再传入formataddr（）
+	带附件的邮件：：文本（MIMEText） +　各个附件（MIMEBase），　MIMEBase可以表示任何对象(set_payload(), add_header()), MIMEMultipart(对象.attach(MIME对象))
+	嵌入图片用::
+			 把图片添加为附件
+			 在HTML中引用src="cid:x"(例如"<img src="cid:0">")
+	同时支持HTML和Plain格式用，MIMEMultipart('alternative')
+	加密SMTP就是在SMTP前, 先创建SSL（socket）安全连接(server.starttls())
+POP3收取邮件：
+	poplib模块， POP3收取编码文本（原始文本）； email模块解析文本为可阅读内容
+	两步：：
+		用poplib把邮件的原始文本下载到本地
+		用email解析原始文本，还原为邮件内容
+	注意，代码是在客户端运行
+	poplib.POP3(pop3_server)，server.getwelcome()【打印POP3服务器的欢迎文字】， server.user(email)， server.pass_(password)， server.stat()【返回邮件数量和占用空间】， server.list()【返回所有邮件的编号】
+	server.retr(index)， Parser().parsestr(msg_content)， server.dele(index)， server.quit()
+	Parser().parsestr(msg_content)把邮件内容解析为MIME对象
+	递归解析MIME对象的层次结构(没有return， 本质是树的深度遍历， msg.is_multipart(), msg.get_payload()得到所有子MIME对象)
+	decode_header()解码，返回list 
+	charset（意思：：字符集编码）, 检测文件内容， 非UTF-8编码的邮件都无法正常显示
+	邮件索引号从1开始
+访问数据库：
+	磁盘文件就是文件系统
+	主要问题：：
+		   存储格式（文本文件， JSON， XML）影响存储，读取方式
+		   不能做快速查询， 数据全部读到内存中才能自己遍历
+	数据库两大功能：：存储和查询：：
+		  				 便于程序保存和读取数据
+		  				 直接通过条件快速查询
+	关系数据库基础：：表之间的"1对多"关系
+	select 列 from 表 where 行判断
+	NoSQL， 隐形schema， 不拆分逻辑表
+	关系数据库类型：：
+				不开源：：
+					  Oracle：：大
+					  SQL Server：：用于windows
+				      DB2：：IBM
+					  Sybase：：很少用
+				开源（用于Google， Facebook， BAT， web）：：
+											  	   MySQL：：常用
+											  	   PostgreSQL::学术
+											  	   SQLite：：嵌入式， 适合桌面和移动应用
+SQLite:
+	   就是一个文件， C写成， 小，常用于（iOS， Android）， python内置, 但不能承受高并发
+	   数据库单元是表， 表和表之间由外键关联
+	   操作数据库步骤：：
+	   			   连接Connection(sqlite3.connect('test.db'))
+	   			   打开游标Cursor(conn.cursor())
+	   			   通过Cursor执行SQL(cursor.execute)
+	   			   取结果（【select】cursor.fetchall()返回list（tuple）， 【insert， update， delete】cursor.rowcount返回影响的行数，通常是1）
+	   			   关闭Cursor（cursor.close()）， 提交事务（conn.commit()）, 关闭连接（conn.close()）
+	   "?"占位符对应几个参数
+	   注意：：数据库文件存本地，不是数据库， 提交（commit）由连接对象完成，不是cursor
+	   驱动就是操作底层的API， 为软件服务，不同操作系统的驱动不能兼容，不同的操作系统，对于操作硬件的方式完全不同
+MySQL：
+	为服务器端设计, 能承受高并发, 占用内存远大于SQLite, 数据库引擎InnoDB支持事务
+	安装MySQL时， root用户的口令务必记清楚
+	用支持Python的MySQL驱动来连接到MySQL服务器（mysql-connector-python, mysql-connector服务器以独立的进程运行， 并通过网络对外服务）
+	有时，服务器含有数据库
+	步骤：：
+		连接(mysql.connector.connect(user='root', password='password', database='test'))
+		SQL占位符是"%s", 其他和SQLite相同（因为Python的DB-API定义都是通用）
+	执行update，delete，insert需要commit
+	commit本质是锁
+	DDL::数据定义语言， 如create table， drop table， alter table
+	DML::数据操作语言，如update，delete，insert into
+SQLAlchemy：
+	python中的ORM框架
+	数据库二维表用list(tuple)表示， 或list（class 实例）
+	ORM::关系数据库的表结构映射到对象
+**********************************************************************
+Web开发:
+	很多看似复杂的东西， 可以去复制
+	"Client/Server"需要逐个升级桌面APP
+	"Browser/Server"应用程序的逻辑和数据存在服务器端, 客户端用浏览器请求网页；服务器端升级后，客户端无需任何部署就可以使用到新的版本
+	Web页面用HTML编写::
+			    	静态Web页面：：修改HTML源文件，实现修改页面， 无法与用户交互
+			    	CGI：：Common Gateway Interface， "C/C++"， 动态页面
+			   	 	"ASP/JSP/PHP"：：满足频繁修改，脚本开发， ASP：：VBScript， JSP：：JAVA， PHP：：本身开源脚本语言
+			    	MVC, MVVC, MV*：：解决直接用脚本语言嵌入HTML导致的可维护性差问题， "Model-View-Controller", ASP::ASP.Net
+HTTP:
+	传网页本质是传网页的HTML代码
+	浏览器和服务器之间用HTTP传输协议
+	Chrome：：
+		   Elements显示HTML
+		   Network显示浏览器和服务器的通信， 小红灯亮， 如GET， POST， HTTP
+		   Network第二行开始就是额外的HTTP请求
+	Request Headers::
+					 浏览器发给新浪服务器的请求
+					 "GET"从服务器获得网页数据
+					 "/"表示URL的路径, URL总是以"/"开头, "/"表示首页
+					 "HTTP/1.1"指示采用的HTTP协议版本是"1.1", "1.1"版本允许多个HTTP请求复用一个TCP连接, 加快传输速度
+					 从第二行开始, key（Xxx）：value（abcdefg） 
+					 Host: www.sina.com.cn, 表示请求的域名是www.sina.com.cn
+					 如果一台服务器有多个网站, 服务器就需要通过Host来区分浏览器请求的是哪个网站
+	Response Headers::
+					  显示服务器返回的原始响应数据
+					  HTTP响应分为Header和Body, Body是可选项
+					  200表示一个成功的响应，后面的OK是说明
+					  失败的响应::404 Not Found：网页不存在, 500 Internal Server Error：服务器内部出错
+					  "Content-Type"指示响应的内容, "text/html"表示HTML网页
+					  浏览器就依靠"Content-Type"来判断响应的内容是网页还是图片，是视频还是音乐, 并不靠URL来判断响应的内容, 即使URL是"http://example.com/abc.jpg"，它也不一定就是图片
+					  HTTP响应的Body就是HTML源码
+					  "Ctrl + u"或是develop tool里的source可以看网页源码
+	浏览器读取到网页的HTML源码后，它会解析HTML，显示页面， 然后，根据HTML里面的各种链接，再发送HTTP请求给服务器，拿到相应的图片、视频、Flash、JavaScript脚本、CSS等各种资源，最终显示出一个完整的页面
+	HTTP请求步骤：：
+			   浏览器首先向服务器发送HTTP请求：：
+			   							方法::GET还是POST，GET仅请求资源，POST会附带用户数据
+			   							路径::"/full/url/path"
+			   							域名::由Host头指定::"Host: www.sina.com.cn"
+			   							其他相关的Header
+			   							POST还包括一个Body，包含用户数据
+			   服务器向浏览器返回HTTP响应::
+			   						 响应代码："200"表示成功，"3xx"表示重定向，"4xx"表示客户端发送的请求有错误，"5xx"表示服务器端处理时发生了错误
+			   						 响应类型：由"Content-Type"指定
+			   						 其他相关的Header
+			   						 Body包含网页的HTML源码
+			   如果浏览器还需要继续向服务器请求其他资源，比如图片，就再次发出HTTP请求， 重复步骤"1、2"  
+	HTTP协议本质就是"请求-响应模式"
+	一个HTTP请求只处理一个资源
+	链入其他服务器的资源, 将请求压力分散到各个服务器上(本质是服务器提供URL链接)
+	一个站点可以链接到其他站点，无数个站点互相链接起来，就形成了World Wide Web，简称WWW
+	HTTP格式：：
+			HTTP请求和响应都遵循相同的格式， "header + （body）"
+			"GET/POST /path HTTP/1.1" + "key:value"【一行一个，换行符是"\r\n"】 + "\r\n\r\n" + (Body)
+			"响应号" + 描述 + "key:value"【一行一个，换行符是"\r\n"】 + "\r\n\r\n" + (body)
+			Body的数据类型由"Content-Type"头来确定，如果是网页，Body就是文本，如果是图片，Body就是图片的二进制数据
+			当存在Content-Encoding时, Body数据被压缩，常见用gzip("Content-Encoding: gzip")
+			需要将Body数据先解压缩，才能得到真正的数据;
+			压缩的目的在于减少Body的大小，加快网络传输
+HTML:
+	想象成一棵树
+	浏览器输入HTML，解析出网页
+	常用tag都是小写，"<!DOCTYPE html>", "<html>", "<head>","<body>", "<title>", "<h1>", （"<dir>"不赞成使用）
+	不要和HTTP的Header、Body搞混
+CSS:
+	用来控制HTML里的所有元素如何展现, 如字体，颜色
+	关键词：："<style> + 被控制tag名 + {"color:"; "font-size:"; "text-shadow:";}", "class="
+JavaScript:
+	使HTML具有交互性
+	可以内嵌如HTML， 也可引用js文件
+	"<script> + JavaScript代码", 然后在元素中调用代码（如： "<h1 onclick="change()">"）
+	js的selector重要功能：：定位标签元素
+	HTML定义了页面的内容，CSS来控制页面元素的样式，而JavaScript负责页面的交互逻辑
+	动态页面的作用：：对不同的用户显示出不同的Web页面， 所以产生了函数
+WSGI：
+	Web Server Gateway Interface， 用于写服务器端， 不要与CGI混淆
+	Web的本质：：
+			 浏览器发送一个HTTP请求
+			 服务器收到请求，生成一个HTML文档
+			 服务器把HTML文档作为HTTP响应的Body发送给浏览器
+			 浏览器收到HTTP响应，从HTTP Body取出HTML文档并显示
+	静态服务器：：先把HTML用文件保存好， 服务器从文件中读取HTML
+	动态生成HTML：：需要自己实现以上四个步骤
+	服务器架构：：
+		底层代码由专门的服务器软件实现（例如使用WSGI， 接受HTTP请求、解析HTTP请求、发送HTTP响应）
+		用Python专注于生成HTML文档
+	HTTP处理函数：：application(environ, start_response)：：
+													 本质是个响应函数：：两部分：：接收请求（environ） + 返回响应（header【start_response】 +　ｂｏｄｙ【return b'html代码'】）
+													 environ：：一个包含所有HTTP请求信息的dict对象
+													 start_response：：一个发送HTTP响应的函数"start_response(HTTP响应码， [(str(key), str(value)...]）"
+													 HTTP响应的Header， 只能发送一次，也就是只能调用一次start_response()函数
+													 调用start_response('200 OK', [('Content-Type', 'text/html')])
+													 响应通常包括：："content-Type"和常用的HTTP Header也应该发送
+													 函数的返回值b'<h1>Hello, web!</h1>'将作为HTTP响应的Body发送给浏览器
+													 整个application()函数本身没有涉及到任何解析HTTP
+	application()函数必须由WSGI服务器来调用(python 内置WSGI服务器：：wsgiref， 不考虑运行效率， 仅供开发和测试)
+	编写server.py，负责启动WSGI服务器，加载application()函数（make_server("IP", "端口"【8000】, "响应函数"【application】), 对象.httpd.serve_forever()）
+	打开浏览器(请求由浏览器发出)，输入"http://localhost:8000/"
+	字符串.encode("小写编码名")
+	即使URL【存在environ['PATH_INFO']里】里输入不同名字， 仍然用的GET 
+	GET和POST的本质：：从客户端角度，一个在服务器上找， 一个在服务器上输入参数找, 翻译为：：得到，寄送
+使用Web框架：
+	本质是省了写响应头（start_response）的工作,从"WSGI响应函数"转移到"URL+对应的响应函数"
+	URL处理函数::"配置URL + 从HTTP请求拿到用户数据"
+    FlaskWEB框架, 使用了装饰器
+    Django：：全能型Web框架
+    web.py：：一个小巧的Web框架
+    Bottle：：和Flask类似的Web框架
+    Tornado：：Facebook的开源异步Web框架
+    有时，同一个"URL/signin"分别有GET和POST两种请求，映射到两个处理函数（本质：："GET/POST +　ＵＲＬ"）
+    步骤：：
+    	创建服务器（Flask（__name__））
+    	逐个解析URL并响应（@app.route(路径， 方法) + 响应函数）
+    	运行服务器（app.run()）
+	"@app.route("path", methods=["GET", "POST"...]) + 响应函数(return 函数体)"， route有路线的意思
+	记住登录界面代码：：'''<form action="/signin" method="post">
+         			<p><input name="username"></p>
+          			<p><input name="password" type="password"></p>
+          			<p><button type="submit">Sign In</button></p>
+          			</form>'''
+    "<form 当访问"URL"，访问方式 才响应>"   注意form参数是method，不是methods，且method="post"， !="get"
+    form点击提交过后，会随request发回服务器
+	即使用了decorator， 函数也不能重名
+	Flask自带的Server在端口5000上监听, localhost=="127.0.0.1"
+	运行app.run()才能开启服务器
+	HTML元素里的属性，不用逗号","隔开, "="的值要加""(引号)
+使用模板：
+	用于生成美观的网页，本质：：把变量输入到模板html文件， 然后生成新的html文件
+	MVC：：
+		作用：：
+			分离了Python代码和HTML代码，HTML代码全部放到模板里
+		Python处理URL的函数就是C：Controller，Controller负责业务逻辑，比如检查用户名是否存在，取出用户信息等等
+		包含变量{{ name }}的模板就是V：View，View负责显示逻辑，通过简单地替换一些变量，View最终输出的就是用户看到的HTML
+		Model是用来传给View的，这样View在替换变量的时候，就可以从Model中取出相应的数据
+		负责判断处理的函数是Controller； 模板是Viewer， 输入模板的变量是Model
+		"MV*", 本质上是封装了处理， 直接输入变量到模板， 得到新的html
+	render_template（"模板html", "关键字参数"）用在model和view联系上
+	"form"在"GET"模块里要设置成"post", 这样使浏览器发送的request包含这个"form"
+	jinja2是html模板
+	"{% ... %}, {{变量名}}"不是HTML的语法，是Jinja语法
+	"{% if message %}" + "{% endif %}"表示在html里加判断
+	Jinja2用"{% ... %}"表示指令； Django：Django是一站式框架，内置一个用"{% ... %}和{{ xxx }}"； Mako：：用"<% ... %>和${xxx}"； Cheetah：：用"<% ... %>和${xxx}"
+	一定要把模板放到正确的templates目录下，templates和app.py在同级目录
+异步IO：
+	本质：：单线程实现IO不等待
+	要素：：
+		消息队列
+		处理请求，遇到IO
+		发出IO，不等结果
+		处理下一个请求， 上一个请求重新排队
+		请求收到
+		静入消息队列
+
+	注意与操作系统管理进程区分（异步IO只是一个进程，不是多线程； 队列里是消息，不是线程或进程； 一个进程或线程可以有多个消息或请求）
+	IO操作不仅读写文件， 还有发送网络数据
+	同步：：
+		不利：：
+			一个线程内（剩下）的其他需要CPU执行的代码就无法被当前线程执行
+	异步：：
+		利：：
+		   发出IO指令，并不等待IO结果，然后就去执行其他代码； 一段时间后，当IO返回结果时，再通知CPU进行处理
+	多线程：
+		不利：：
+			线程数量过多，CPU的时间就花在线程切换上
+			系统不能无上限地增加线程
+			系统切换线程的开销也很大
+	异步IO模型需要一个消息循环，在消息循环中，主线程不断地重复"读取消息-处理消息"这一过程
+	一个GUI程序的主线程就负责不停地读取消息并处理消息; 所有的键盘、鼠标等消息都被发送到GUI程序的消息队列中，然后由GUI程序的主线程处理
+	由于GUI线程处理键盘、鼠标等消息的速度非常快，所以用户感觉不到延迟
+	GUI线程在一个消息处理的过程中遇到问题导致一次消息处理时间过长，此时，用户会感觉到整个GUI程序停止响应了，敲键盘、点鼠标都没有反应
+	同步VS异步，阻塞VS非阻塞：：
+						函数调用并不是多线程
+						一个消息可理解为调用一个函数返回，而一个进程可以是一个main函数执行
+						同步，异步关注消息是返回结果，还是返回标记+结果;解决函数调用问题
+						阻塞，非阻塞关注线程是一直等，还是监听+玩耍；解决多任务问题
+						同步和异步关注的是消息通信机制 ("synchronous communication/ asynchronous communication")
+						同步本质：：返回时一定是最后结果（不挂电话等结果）
+						异步本质：：先返回，结果稍后通知（挂电话，回电结果）
+						阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态
+						阻塞本质：：线程一直等，不玩耍
+						非阻塞本质：：一个线程监听，另一个线程玩耍
+协程：
+	协程，又称微线程，纤程， Coroutine
+	子程序，或者称为函数，通过栈实现的
+	协程本质：：一个线程执行，通过函数（子程序）间任意中断切换（不调用其他函数），起到多线程的作用（多线程是操作系统切换）
+	协程VS多线程：：
+			   子程序切换不是线程切换，而是由程序自身控制， 没有线程切换的开销
+			   不需要多线程的锁机制， 因为只有一个线程，也不存在同时写变量冲突（修改后，随时知道）， 控制共享资源不加锁，只需要判断状态(yield)
+			   "多进程+协程"利用多核CPU
+	Python对协程的支持是通过generator实现
+	yield本质::一旦有(接收send)，我就执行； 一旦没有（没有send了， 返回send），你就执行； 不但可以返回一个值，它还可以接收调用者发出的参数
+	生产者生产消息后，直接通过yield跳转到消费者开始执行，待消费者执行完毕后，切换回生产者继续生产
+	consumer函数是作为一个generator传入produce
+	首先调用c.send(None)启动生成器， 此时不跳转到yield所在函数
+	一定注意，当元素是数字0时的if， while， for 判断
+	generator用"c = customer()"产生
+	子程序就是协程的一种特例::相当于send， yield，实现了单个无调用子程序运行中的手动中断
+asyncio：
+	内置对异步IO的支持
+	消息队列的元素就是一个个函数调用， 每个函数遇到yield都会中断， 然后跳往另一个函数去执行
+	协程的本质是函数间切换
+	同步IO和异步IO本质差异：：在消息队列中， 函数（消息）间能不能切换
+	进程切换-->线程切换-->函数（子程序）切换
+	"yield from"与"yield"会把内嵌的"generator输出"作为当前generator输出的一部分
+	"@asyncio.coroutine"把一个generator标记为coroutine, 然后把coroutine扔到EventLoop中执行
+	loop = asyncio.get_event_loop()， loop.run_until_complete(hello())， loop.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
