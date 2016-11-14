@@ -2465,39 +2465,905 @@
 # image = image.filter(ImageFilter.BLUR)
 # image.save('code.jpg')
 
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+# from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-import random
+# import random
 
-def rndChar():
-	return chr(random.randint(65, 90))
+# def rndChar():
+# 	return chr(random.randint(65, 90))
 
-def rndColor():
-	return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+# def rndColor():
+# 	return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
 
-def rndColor2():
-	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+# def rndColor2():
+# 	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
 
-def rndColor2():
-	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+# def rndColor2():
+# 	return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
 
 
-width = 60 * 4
-height = 60
+# width = 60 * 4
+# height = 60
 
-image = Image.new('RGB', (width, height), (255, 255, 255))
+# image = Image.new('RGB', (width, height), (255, 255, 255))
 
-font = ImageFont.truetype('Arial.ttf', 36)
-draw = ImageDraw.Draq(image)
+# font = ImageFont.truetype('Arial.ttf', 36)
+# draw = ImageDraw.Draq(image)
 
-for x in range(width):
-	for y in range(height):
-		draw.poin((x, y), fill=rndColor())
+# for x in range(width):
+# 	for y in range(height):
+# 		draw.poin((x, y), fill=rndColor())
 
-for t in range(4):
-	draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2)
+# for t in range(4):
+# 	draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2)
 
-image = image.filter(ImageFilter.BLUR)
-image.save('code.jpg', 'jpeg')
+# image = image.filter(ImageFilter.BLUR)
+# image.save('code.jpg', 'jpeg')
+
+# from tkinter import *
+
+# class Application(Frame):
+
+# 	def __init__(self, master=None):
+# 		Frame.__init__(self, master)
+# 		self.pack()
+# 		self.createWidgets()
+
+# 	def createWidgets(self):
+# 		self.helloLabel = Label(self, text="Hello,!")
+# 		self.helloLabel.pack()
+# 		self.quitButton = Button(self, text="Quit", command=self.quit)
+# 		self.quitButton.pack()
+
+# app = Application()
+# app.master.title("Hello")
+# app.mainloop()
+
+
+# from tkinter import * 
+# import tkinter.messagebox as messagebox
+
+# class Application(Frame):
+
+# 	def __init__(self, master=None):
+# 		Frame.__init__(self, master)
+# 		self.pack()
+# 		self.createWidgets()
+
+# 	def createWidgets(self):
+# 		self.nameInput = Entry(self)
+# 		self.nameInput.pack()
+# 		self.alertButton = Button(self, text="Hello", command=self.hello)
+# 		self.alertButton.pack()
+
+# 	def hello(self):
+# 		name = self.nameInput.get() or "world"
+# 		messagebox.showinfo("Messgae", "Hello, %s" % name)
+
+# app = Application()
+# app.master.titile("Hello World")
+# app.mainloop()
+
+
+# import socket, os
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# s.connect(("www.google.com", 80))
+
+# s.send(b"GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n")
+
+# buffer = []
+
+# while True:
+# 	d = s.recv(1024)
+# 	if d:
+# 		buffer.append(d)
+# 	else:
+# 		break
+# data = b"".join(buffer)
+
+# s.close()
+
+# header, html = data.split(b'\r\n\r\n', 1)
+# print(header.decode("utf-8"))
+# with open(os.path.join(".","sina.html"), 'wb') as f:
+# 	f.write(html)
+
+# import socket
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connect(('www.sina.com.cn', 80))
+# s.send(b'GET / HTTP/1.1\r\nHost: www.sina.com.cn\r\nConnection: close\r\n\r\n')
+# buffer = []
+# while True:
+#     d = s.recv(1024)
+#     if d:
+#         buffer.append(d)
+#     else:
+#         break
+# data = b''.join(buffer)
+# s.close()
+# header, html = data.split(b'\r\n\r\n', 1)
+# print(header.decode('utf-8'))
+# with open('sina.html', 'wb') as f:
+#     f.write(html)
+
+# import socket
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.bind("127.0.0.1", 9999)
+# s.listen(5)
+# print("waitting for connection....")
+
+# while True:
+# 	sock, addr = s.accept()
+# 	t = threading.Thread(target=tcplink, args=(sock, addr))
+# 	t.start()
+
+# def tcplink(sock, addr):
+# 	print("Accept new connection from %s:%s..." % addr)
+# 	sock.send(b'welcome!')
+# 	while True:
+# 		data = sock.recv(1024)
+# 		time.sleep(1)
+# 		if not data or data.decode('utf-8') == 'exit':
+# 			break
+# 		sock.send("Hello, %s!" % data.decode('utf-8')).encode('utf-8')
+# 	sock.close()
+# 	print('Connection from %s:%s closed.' % addr)
+
+# import socket
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connect(("www.sian.com", 80))
+
+
+# s. send(b'GET / HTTP/1.1\r\nHost: www.sina.com.cn\r\nConnection: close\r\n\r\n')
+# buffer = []
+# while True:
+# 	d = s.recv(1024)
+# 	if d:
+# 		buffer.append(d)
+# 	else:
+# 		break
+# data = b''.join(buffer)
+# s.close()
+
+# header, html = data.split(b'\r\n\r\n', 1)
+# print(header, decode('utf-8'))
+
+# with open('sina.html', 'wb') as f:
+# 	f.write(html)
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.bind("127.0.0.1", 9999)
+
+# # 该socket用来描述连接上来的客户进程
+
+# import socket
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connect(("www.sina.com.cn", 80))
+
+# s.send(b"GET / HTTP/1..1\r\nHost: www.sina.com.cn\r\nConnection: close\r\n\r\n")
+
+# buffer = []
+# while True:
+# 	d = s.recv(1024)
+# 	if d:
+# 		buffer.append(d)
+# 	else:
+# 		break
+# data = b''.join(buffer)
+
+# s.close()
+
+
+# header, html = data.split(b'\r\n\r\n', 1)
+# print(header.decode('utf-8'))
+# with open('sina.html', 'wb') as f:
+# 	f.write(html)
+
+
+# s = socket.socket(socket>AF_INET, socket.SOCK_STREAM)
+# s.bind('127.0.0.1', 9999)
+# s.listen(5)
+# print('Waiting for connection....')
+
+# while True:
+# 	sock, addr = s.accept()
+# 	t = threading.Thread(target=tcplink, args=(sock, addr))
+# 	t.start()
+
+# def tcplink(sock, addr):
+# 	print('Accept new connection from %s:%s...' % addr)
+# 	sock.send(b'Welcome!')
+# 	while True:
+# 		data = sock.recv(1024)
+# 		time.sleep(1)
+# 		if not data or data.decode('utf-8') == 'exit':
+# 			break
+# 		sock.send(('Hello, %s' % data.decode('utf-8')).encode('utf-8'))
+# 	sock.close()
+# 	print('Connection from %s:%s closed.' % addr)
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connection(('127.0.0.1', 9999))
+# print(s.recv(1024).decode('utf-8'))
+# for data in [b'Michael', b'Tracy', b'Sarah']:
+# 	s.send(data)
+# 	print(s.recv(1024).decode('utf-8'))
+# s.send(b'exit')
+# s.close()
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# s.bind(('127.0.0.1', 9999))
+# print('Bind UDP on 9999....')
+# while True:
+# 	data, addr = s.recvfrom(1024)
+# 	print('Received from %s:%s.' % addr)
+# 	s.sendto(b'Hello, %s!' % data, addr)
+
+# s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# for data in [b'Michael', b'Tracy', b'Sarah']:
+# 	s.sendto(data, ('127.0.0.1', 9999))
+# 	print(s.recv(1024).decode('utf-8'))
+# s.close()
+
+# from email.mime.text import MIMEText
+# msg = MIMEText('hello, send by Python...', 'plain', 'utf-8')
+
+# from_addr = input('From: ')
+# password = input('Password')
+
+# to_addr = input("To: ")
+# smtp_server = input("SMTP server: ")
+
+# import smtplib
+# server = smtplib.SMTP(smtp_server, 25)
+# server.set_debuglevel(1)
+# server.login(from_addr, password)
+# server.sendmail(from_addr, [to_addr], msg.as_string())
+# server.quit()
+
+# from email import encoders
+# from email.header import header
+# from email.mime.text import MIMEText
+# from email.utils import parseaddr, fromataddr
+
+# import smtplib
+# def _format_addr(s):
+# 	name, addr = parseaddr(s)
+# 	return formataddr(Header(name, 'utf-8').encode(), addr)
+
+# from_addr = input("From: ")
+# password = input("Password: ")
+# to_addr = input("To: ")
+# smtp_server = input("SMTP server: ")
+
+# msg = MIMEText("hello, send by Python...", "plain", "utf-8")
+# msg["From"] = _format_addr("Python_learner<5s>" % from_addr)
+# msg["To"] = _format_addr("管理员 <%s>" % to_addr)
+# msg["Subject"] = Header("来自SMTP的问候...", "utf-8").encode()
+
+# server = smtplib.SMTP(smtp_server, 25)
+# server.set_debuglevel(1)
+# server.login(from_addr, password)
+# server.sendmail(from_addr, [to_addr], msg.as_string())
+# server.quit()
+
+# msg = MIMEText('<html><body><h1>Hello</h2>', "html", "utf-8")
+
+
+# msg = MIMEMultipart()
+# msg["From"] = _format_addr("python <%s>" % from_addr)
+# msg["To"] = _format_addr("Admi <%s>" % to_addr)
+# msg["Subject"] = HEader("Fromm ....", "utf-8").encode()
+
+# msg.attach(MIMEText("send with file...", "plain", "utf-8"))
+
+# with open("/Users/michael/Downloads/test.png", "rb") as f:
+# 	mime = MIMEBase("image", "png", filename="test.png")
+# 	mime.add_header("COntent-Disposition", "attachment", filename="test.png")
+# 	mime.add_header("Content-ID", "<0>")
+# 	mime.add_header("X-Attachment-Id", "0")
+# 	mime.set_payload(f.read())
+# 	encoders.encode_base(mime)
+# 	msg.attach(mime)
+
+
+# # msg.attach("<p><img src="cid:0"><p>", "html", "utf-8")
+
+# msg = MIMEMultipart("alternative")
+# msg["From"] = 
+# msg["To"] =
+# msg["subject"] = 
+
+# msg.attach(MIMEText("hello", "plain", "utf-8"))
+# msg.attach(MIMEText("<html><body><h1>Hello</h1></body></html>", "html", "utf-8"))
+
+# smtp_server = "smtp.gmail.com"
+# smtp_port = 587
+# server = smtplib.SMTP(smtp_server, smtp_port)
+# server.starttls()
+# server.set_debuglevel(1)
+
+# from email.mime.text import MIMEText
+# import smtplib
+
+# msg = MIMEText("hello, send by Python...", "plain", "utf-8")
+
+# from_addr = "xunzou3@gmail.com"
+# password = "3280zx20070918"
+# to_addr = "zhierrox@hotmail.com"
+# smtp_server = 'smtp.gmail.com'
+
+
+# server = smtplib.SMTP(smtp_server, 587)
+# server.starttls()
+# server.set_debuglevel(1)
+# server.login(from_addr, password)
+# server.sendmail(from_addr, [to_addr], msg.as_string)
+# server.quit()
+
+# from email.mime.text imprt MIMEText
+# msg = MIMEText("Hello, send by Python...", 'plain', 'utf-8')
+
+# form_addr = input('From: ')
+# password =input("Password")
+# to_addr = input("To: ")
+# smtp_server = input("SMTP server: ")
+
+# import smtplib
+# server = smtplib.SMTP(smtp_server, 25)
+# server.set_debuglever(1)
+# server.login(from_addr, password)
+# server.sendmail(from_addr, [to_addr], msg.as_string)
+# server.quit()
+ 
+ # from email import encoders
+ # from email.header import Header
+ # from email.mime.text import MIMEText
+ # from email.utils import parseaddr, fromataddr
+
+ # import smtplib
+
+ # def _format_addr(s):
+ # 	name, addr = parseaddr(s)
+ # 	return formataddr((Header(name, "utf-8").encode(), addr))
+
+ # from_addr = input("From: ")
+ # password = input("Password: ")
+ # to_addr = input("To: ")
+ # smtp_server = input("SMTP server: ")
+
+ # msg = MIMEText("hello, send by Python...", "plain", "utf-8")
+ # msg["From"] = _format_addr("PYthon爱好者 <%s>" % from_addr)
+ # msg["To"] = _format_addr("管理员 <%s>" % to_addr)
+ # msg['Subject'] = Header('来自SMTP的问候....'， 'utf-8').encode()
+
+ # server = smtplib.SMTP(smtp_server, 25)
+ # server.set_debuglevel(1)
+ # server.login(from_addr, password)
+ # server.sendmail(from_addr, [to_addr], msg.as_string)
+ # server.quit()
+
+ # msg = MIMEText("<html><body><h1>Hello</h1>" + 
+ # 				"<p>send by <a href="http: //www.python.org"> Python </a>...</p>"
+ # 				+ "</body></html>", "html", "utf-8")
+
+
+
+
+# ｍｓｇ = MIMEMultipart()
+# msg['From'] = _format_addr("Python爱好者 <%s>" % from_addr)
+# msg["To"] = _format_addr("管理员 <%s>" % to_addr)
+# msg["Subject"] = Header("来自SMTP的问候....", "utf-8").encode()
+
+# msg.attach(MIMEText("send with file....", "plain", "utf-8"))
+
+# with open("/Users/michael/Downloads/test.png", 'rb') as f:
+# 	mime = MIMEBase('image', 'png', filename='test.png')
+# 	mime.add_header('Content-disposition', 'attachment', filename='test.png')
+# 	mime.add_header('Content-ID', '<0>')
+# 	mime.add_header('X-Attachment-Id', '0')
+# 	mime.set_payload(f.read())
+# 	encoders.encode_base64(mime)
+# 	msg.attach(mime)
+
+# msg.atttach(MIMEText('<html><body><h1>Hello</h1>' 
+# 					+ '<p><img src="cid:0"></p>'
+# 					+ '</body></html>', 'html', 'utf-8')
+
+# msg = MIMEMultipart('alternative')
+
+# msg['From'] = 
+# msg['To'] = 
+# msg['Subject'] = 
+
+# msg.attach(MIMEText('hello', 'plain', 'utf-8'))
+# msg.attach(MIMEText('<html><body><h1>Hello</h1></body></html>', 'html', 'utf-8'))
+
+# smtp_server = 'smtp.gmail.com'
+# smtp_port = 587
+# server = smtplib.SMTP(smtp_server, smtp_port)
+# server.starttls()
+# server.set_debuglevel(1)
+
+# import poplib
+
+# emai = input("Email: ")
+# password = input("Password: ")
+# pop2_server = input("POP3 server: ")
+
+# server = poplib.POP3(pop3_server)
+# server.set_debuglevel(1)
+# print(server.getwelcome().decode("utf-8"))
+
+# server.user(email)
+# server.pass_(password)
+
+# print("Messages: %s. Size: %s" % server.stat())
+# resp, mails, octets = server.list()
+# print(mails)
+
+# index = len(mails)
+# resp, lines, octets = serer.retr(index)
+
+# msg_content = b"\r\n".join(lines).decode('utf-8')
+# msg = Parser().parsestr(msg_content)
+
+# server.dele(index)
+
+# server.quit()
+
+
+# from email.parser import Parser
+# from email.header import decode_header
+# from email.utils import parseaddr
+
+# import poplib
+
+
+# msg = Parser().parsestr(msg_content)
+
+
+# def print_info(msg, indent=0):
+# 	if indent == 0:
+# 		for header in ['From', 'To', 'Subject']:
+# 			value = msg.get(header, '')
+# 			if value:
+# 				if header == 'Subject':
+# 					value = decode_str(value)
+# 				else:
+# 					hdr, addr = parseaddr(value)
+# 					name = decode_str(hdr)
+# 					value = u'%s <%s>' % (name, addr)
+# 			print(%s%s: %s % (' ' * indent, header, value))
+# 	if ()
+
+
+# import poplib
+
+# email = input("Email: ")
+# password = input("Password")
+# pop3_server = input("POP3 server: ")
+
+
+# server = poplib.POP3(pop3_server)
+# server.set_debuglevel(1)
+# print(server.getwelcome().decode('utf-8'))
+
+# server.user(email)
+# server.pass_(password)
+
+# print('Messages: %s. Size: %s' % server.stat())
+# resp, mails, octets = server.list()
+# print(mails)
+
+# index = len(mails)
+# resp, lines, octets = server.retr(index)
+
+# msg_content = b'\r\n'.join(lines).decode('utf-8')
+# msg = Parser().parsestr(msg_content)
+
+# server.dele(index)
+
+# server.quit()
+
+# from  email.parser import Parser
+# from email.header import decode_header
+# from email.utils import parseaddr
+
+# import poplib
+
+# msg = Parser().parsestr(msg_content)
+
+
+# def print_info(msg, indent=0):
+# 	if indent == 0:
+# 		for header in ["From", "To", "Subject"]:
+# 			value = msg.get(header, "")
+# 			if value:
+# 				if header == "Subject":
+# 					value = decode_str(value)
+# 				else:
+# 					hdr, addr = parseaddr(value)
+# 					name = decode_str(hdr)
+# 					value = u'%s <%s>' % (name, addr)
+# 			print('%s%s: %s' % (" "* indent, header, value))
+
+# 	if (msg.is_multipart()):
+# 		parts = msg.get_payload()
+# 		for n, part in enumerate(parts):
+# 			print("%spart %s" % (' ' * indent, n))
+# 			print('%s--------------------' % (' ' * indent))
+# 			print_info(part, indent + 1)
+# 	else:
+# 		content_type = msg.get_content_type()
+# 		if content_type == "text/plain" or content_type == "text/html":
+# 			content = msg.get_payload(decode=True)
+# 			charset = guess_charset(msg)
+# 			if charset:
+# 				content = content.decode(charset)
+# 			print("%sText: %s" % (' ' * indent, content + '...'))
+# 		else:
+# 			print("%sAttachment: %s" % (' ' * indent, content_type))
+
+# def decode_str(s):
+# 	value, charset = decode_header(s)[0]
+# 	if charset:
+# 		value = value.decode(charset)
+# 	return value
+
+# def guess_charset(msg):
+# 	charset = msg.get_charset()
+# 	if charset is None:
+# 		content_type = msg.get("Content-TYpe", "").lower()
+# 		pos = content_type.find('charset=')
+# 		if pos >= 0:
+# 			charset = content_type[pos + 8:].strip()
+# 	return charset
+
+# import poplib
+
+# email = input("Email: ")
+# password = input("Password: ")
+# pop3_server = input("POP3 server")
+
+# server = poplib.POP3(pop3_server)
+
+# server.set_debuglevel(1)
+
+# print(server.getwelcome().decode('utf-8'))
+
+# server.user(email)
+# server.pass_(password)
+
+# print('Messages: %s. Size: %s' % server.stat())
+
+# resp, mails, octets = server.list()
+
+# print(mails)
+
+# index = len(mails)
+# resp, lines, octets = server.retr(index)
+
+# msg_content = b'\r\n'.join(lines).decode('utf-8')
+
+# msg = Parser().parsestr(msg_content)
+# server.quit()
+
+# from email.parser import Parser
+# from email.header import decode_header
+# from email.utils import parseaddr
+
+# import poplib
+
+# # msg = Parser().parsestr(msg_content)
+
+# def decode_str(s):
+# 	value, charset = decode_header(s)[0]
+# 	if charset:
+# 		value = value.decode(charset)
+# 	return value
+
+# def guess_charset(msg):
+# 	charset = msg.get_charset()
+# 	if charset is None:
+# 		content_type = msg.get("Content-Type", "").lower()
+# 		pos = content_type.find("charset=")
+# 		if pos >= 0:
+# 			charset = content_type[pos + *:].strip()
+# 	return charset
+
+# def print_info(msg, indent=0):
+# 	if indent == 0:
+# 		for header in ["From", "To", "Subject"]:
+# 			value = msg.get(header, "")
+# 			if value:
+# 				if header == "Subject":
+# 					value = decode_str(value)
+# 				else:
+# 					hdr, addr = parseraddr(value)
+# 					name = decode_str(hdr)
+# 					value = u'%s <%s>' % (name, addr)
+# 			print("%s%s: %s" % (' ' * indent, header, value))
+# 	if (msg.is_multipart()):
+# 		parts = msg.get_payload
+# 		for n, part in enumerate(parts):
+# 			print("%spart %s" % (" "*indent, n))
+# 			print('%s---------------------------' % (' ' * indent))
+# 			print_info（part, indent + 1）
+# 	else:
+# 		content_type = msg.get_content_type()
+# 		if content_type == "text/plain" or content_type == "text/html":
+# 			content = msg.get_payload(decode=True)
+# 			charset = guess_charset(msg)
+# 			if charset:
+# 				content = content.decode(charset)
+# 			print('%sText: %s' % (' ' * indent, content + "..."))
+# 		else:
+# 			print("%sAttachment: %s" % (" " * indent, content_type))
+
+# def get_score_in(low, high):
+# 	conn = sqlite3.connect("test.db")
+# 	cursor = conn.cursor()
+# 	cursor.execute('select * from user where score >= ? and socre <= ? order by score', (low, high))
+# 	values = cursor.fetchall()
+# 	print([x[1] for x in values], ', get_score_in(%s, %s)'%(low, high))
+# 	cursor.close()
+# 	conn.close()
+
+# [client]
+# default-character-set = utf-8
+
+# [mysqld]
+# default-storage-engine = INNODB
+# character-set-server = utf-8
+# collation-server = utf8_general_ci
+
+# mysql -u root -password
+
+# mysql -u root -p
+
+# show variables like '%char%'
+
+# pip install mysql-connector-python --allow-external mysql-connector-python
+
+# pip install mysql-connector
+
+
+# import mysql.connector
+
+# conn = mysql.connector.connect(user='root', password='password', database='test')
+# cursor = conn.cursor()
+
+# cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
+
+# cursor.execute('insert into user (id , name) values (%s, %s)', ['1', 'Michael'])
+# cursor.rowcount
+
+
+# conn.commit()
+# cursor.close()
+
+
+# cursor = conn.cursor()
+# cursor.execute("select * from user where id = %s", ('1',))
+
+# values = cursor.fetchall()
+# values
+
+# cursor.close()
+
+# conn.close()
+
+
+# class User(object):
+
+# 	def __init__(self, id, name):
+# 		self.id = id
+# 		self.name = name
+
+# [
+# 	User('1', 'Michael'),
+# 	User('2', 'Bob'),
+# 	User('3', 'Adam')
+# ]
+
+# pip install sqlalchemy
+
+
+
+# def application(environ, start_response):
+# 	start_response("200 OK", [("Content-Type", "text/html")])
+# 	return [b"<html><head><h1>Hello, Web!</h1></head></html>"]
+
+# <html>
+# <head>
+# 	<title>Home</title>
+# </head>
+# <body>
+# 	<h1 style="font-style:italic">Home</h1>
+# </body>
+# </html>
+
+# <html>
+# <head>
+# 	<title>
+# 		Please Sign In
+# 	</title>
+# </head>
+# <body>
+# 	{% if message %}
+# 	<p style="color:read">{{ message }}</p>
+# 	{% endif %}
+# 	<form action="/signin" method="post">
+# 		<legend>Please sign In:</legend>
+# 		<p><input name="username" placeholder="Username" value="{{ username }}"></p>
+# 		<p><input name="password" placeholder="Password" type="password"></p>
+# 		<p><button type="submit">Sign In</button></p>
+# 	</form>
+# </body>
+# </html>
+
+# <html>
+# <head>
+# 	<title>Welcom, {{ username }}</title>
+# </head>
+# <body>
+# 	<p>Welcome, {{ username }}!</p>
+# </body>
+# </html>
+
+# {% for i in page_list %}
+# 	<a href="/page/{{ i }}">{{ i }}</a>
+# {% endfor %}
+
+# loop = get_event_loop()
+
+# while True:
+# 	event = loop.get_event()
+# 	process_event(event)
+
+# do_some_code()
+# f = open('/path/to/file', 'r')
+# r = f.read()
+# do_some_code(r)
+
+# loop
+
+# do_some_code()
+# f = open('/path/to/file', r)
+# r = f.read()
+
+# loop = get_event_loop()
+# while True:
+# 	event = loop.get_event()
+# 	process_event(event)
+
+# def consume():
+# 	r = ""
+# 	while True:
+# 		n = yield r
+# 		if not n:
+# 			return 
+# 		print('[Consuming %s...]' % n)
+# 		r = '200 OK'
+
+# def produce(c):
+# 	c.send(None)
+# 	n = 0
+# 	while n < 5:
+# 		n = n + 1
+# 		print('[PRODUCER] Producing %s...' % n)
+# 		r = c.send(n)
+# 		print('[PRODUCER] Consumer return: %s' % r)
+# 	c.close()
+
+# c = consumer()
+# produce(c)
+
+
+
+
+
+
+# def customer():
+# 	r = ""
+# 	print("Customers are comming....")
+# 	while True:
+# 		n = yield r
+# 		if not n:
+# 			return
+# 		print('[Consuming...]' % n)
+# 		r = "Git Perforce OK"
+
+# def producer(c):
+# 	n = 0
+# 	while n < 5:
+# 		print('[Producing...]' % n)
+# 		k = c.send(n)
+# 		print('[local consumming]' % k)
+# 	c.close()
+
+# if __name__ == "__main__":
+# 	customer()
+# 	producer(c)
+# import asyncio
+
+# @asyncio.coroutine
+# def hello():
+# 	print("Hello World!")
+# 	r = yield from asyncio.sleep(1)
+# 	print("Hello again!")
+
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(hello())
+# loop.close()
+
+# import threading
+# import asyncio
+
+# @asyncio.coroutine
+# def hello():
+# 	print("Hello World! (%s)" % threading.currentThread())
+# 	yield from asyncio.sleep(1)
+# 	print("Hello again!(%s)" % threading.currentThread())
+
+# loop = asyncio.get_event_loop()
+# tasks = [hello(), hello()]
+# loop.run_until_complete(asyncio.wait(tasks))
+# loop.close()
+
+# import asyncio
+
+# @asyncio.coroutine
+# def wget(host):
+# 	print("wget %..." % host)
+# 	connect  = asyncio.open_connection(host, 80)
+# 	reader, writer = yield from connect
+# 	header = 'GET / HTTP/1.0\r\nHost: %s\r\n\r\n' % host
+# 	writer.write(header.encode('utf-8'))
+# 	yield from writer.drain()
+# 	while True:
+# 		line = yield from reader.redline()
+# 		if line == b'\r\n':
+# 			break
+# 		print('%s header > %s' % (host, line.decode('utf-8').rstrip()))
+# 	write.close()
+
+# loop = asyncio.get_event_loop()
+# tasks = [wget(host) for host in ['www.sina.com.cn', 'www.sohu.com', 'www.163.com']]
+# loop.run_until_complete(asyncio.wait(tasks))
+# loop.close()
+
+import asyncio
+
+@asyncio.coroutine
+def hello():
+	print("Hello World!")
+	r = yield from aysncio.sleep(1)
+	print("Hello Again! %s" % r)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(hello())
+loop.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
